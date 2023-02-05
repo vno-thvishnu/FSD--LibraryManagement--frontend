@@ -2,6 +2,7 @@ import React from "react";
 import css from "./Welcome.module.scss";
 import libblue from "../assets/lib blue.png";
 import libgreen from "../assets/lib green.png";
+import { Link } from "react-router-dom";
 
 function Welcome() {
   return (
@@ -24,7 +25,7 @@ function Welcome() {
               <h5>
                 <span>Admin</span> login here
               </h5>
-              <button>Next page</button>
+              <Link to="/login_page" className={`forbutton ${css.forbutton}`}>Next page</Link>
             </div>
           </div>
           <div className={css.contentbox__right}>

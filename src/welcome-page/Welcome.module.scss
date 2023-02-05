@@ -1,156 +1,142 @@
-@import "../constant-scss/constant.scss";
+@import "../constant-scss/main.scss";
 
-.overallbg{
-    min-height: 100vh;
-    min-width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 8vw;
-    padding-right: 8vw;
-    // background-color:#e9e7e7 ;
-    // background-color: $primary;
-    // background-image: url('../assets/lib\ green.png');
+.overallbg {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 8vw;
+  padding-right: 8vw;
+  // background-color:#e9e7e7 ;
+  // background-color: $primary;
+  // background-image: url('../assets/lib\ green.png');
 
-    // object-fit: fill;
-    background: linear-gradient($primary,$secondary);
-    // linear-gradient(#74d1e3, #042b2f);
-    font-family: $font4;
+  // object-fit: fill;
+  background: linear-gradient( 180deg, $primary 50%, $tertiary 50%);
+  // linear-gradient(#74d1e3, #042b2f);
+  font-family: $font4;
 
-
-
-    .contentbox{
-        height: fit-content;
-        width: fit-content;
-        display: grid;
-        grid-template-columns: 1fr 1.5fr;
-        overflow: hidden;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  .contentbox {
+    height: fit-content;
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    overflow: hidden;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0)
+    );
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-radius: 50px;
-    border:1px solid rgba(255, 255, 255, 0.18);
+    border-top-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    background-color:whitesmoke;
+    background-color: $tertiary;
 
-    @media only screen and  (max-width: 600px) {
-    
-        grid-template-columns:none  ;
-}
+    @media only screen and (max-width: 600px) {
+      grid-template-columns: none;
+      border-top-left-radius: 60px;
+      border-bottom-right-radius: 60px;
+    }
 
-    .contentbox__left{
-        padding: 10%;
-       padding-top: 5%;
-       padding-right: 0;
+    .contentbox__left {
+      padding: 10%;
+      padding-top: 5%;
+      padding-right: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .contentbox__left__heading {
+        color: $primary;
+        font-size: 3vw;
+      }
+      .contentbox__left__text {
+        padding-left: 5%;
+        color: $secondary;
         display: flex;
         flex-direction: column;
-        gap: 2rem;
-
-        .contentbox__left__heading{
-            color: $primary;
-font-size: 3vw;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 1rem;
+        font-size: 1.5vw;
+        h4 {
+          font-weight: 500;
         }
-        .contentbox__left__text{
-            padding-left:5% ;
-            color: $secondary;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            gap: 1rem;
-            font-size: 1.5vw;
-            h4{
-                font-weight: 500;
-            }
-            p{
-font-family: $font1;
-font-size: 1.2vw;
-font-weight: lighter;
-letter-spacing: 1px;
-color: black;
-            }
-            h6{
-                color: grey;
-            }
-            :nth-child(5n-1){
-                font-weight: lighter;
+        p {
+          font-family: $font1;
+          font-size: 1.2vw;
+          font-weight: lighter;
+          letter-spacing: 1px;
+          color: black;
+        }
+        h6 {
+          color: $primary;
+        }
+        :nth-child(5n-1) {
+          font-weight: lighter;
 
-                font-size: 1vw;
-                span{
-                    font-weight: bold;
-                }
-            }
-button{
-    border: none;
-    padding: 2%;
-    padding-left: 5%;
-    padding-right: 5%;
-    border-radius: 15px;
-    background-color: $secondary;
-    color: whitesmoke;
-}        }
+          font-size: 1vw;
+          span {
+            font-weight: bold;
+          }
+        }
+        .forbutton {
+          background-color: $primary;
+          text-decoration: none;
+          color:$tertiary 
+        }
+      }
     }
 
-        .contentbox__right{
-            padding: 2%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    .contentbox__right {
+      padding: 2%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-            @media only screen and  (max-width: 600px) {
-    
-grid-row: 1;        }
-        
+      @media only screen and (max-width: 600px) {
+        grid-row: 1;
+      }
 
-            .contentbox__right__img{
-              img{
-                width: 100%;
-                // height: 45vh;
-                aspect-ratio: 4/2;
-                // object-fit: contain;
-              }
-            }
+      .contentbox__right__img {
+        img {
+          width: 100%;
+          // height: 45vh;
+          aspect-ratio: 4/2;
+          // object-fit: contain;
         }
+      }
     }
+  }
 }
 
+@media only screen and (max-width: 600px) {
+  .contentbox {
+    background-color: aquamarine;
+  }
+  .contentbox__left {
+    padding-top: 0 !important ;
+    padding-right: 10% !important;
+    display: flex !important;
+    gap: 0.5rem !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .contentbox__left__heading {
+    font-size: 7vw !important;
+  }
+  .contentbox__left__text {
+    display: flex !important;
+    gap: 0.3rem !important;
+    align-items: center !important;
 
-@media  only screen and (max-width: 600px) {
-    .contentbox{
-
-        background-color: aquamarine ;
-
-    }
-    .contentbox__left{
-        padding-top:0 !important ;
-        padding-right: 10% !important;
-        display: flex !important;
-        gap: 0.5rem !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-    .contentbox__left__heading{
-        font-size: 7vw !important;
-    }
-    .contentbox__left__text{
-        display: flex !important;
-        gap: 0.3rem !important;
-        align-items: center !important;
-        h4{
-            font-size: 3.5vw !important;
-        }
-        h6{
-            font-size: 3vw !important;
-        }
-        p{
-            font-size: 3vw !important;
-        }
-        h5{
-            font-size: 3.5vw !important;
-        }
-        button{
-            font-size: 2.5vw !important;
-        }
-
-    }
+    // button{
+    //     font-size: 2.5vw !important;
+    // }
+  }
 }

@@ -1,0 +1,113 @@
+.forbutton{
+    border: none;
+    padding: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: 15px;
+    font-size: 1vw;
+    cursor: pointer;
+    background-color: $primary;
+    text-decoration: none;
+    color:$tertiary ;
+@media  only screen and (max-width: 600px) {
+    font-size: 2.5vw !important;
+
+}
+}
+
+@media  only screen and (max-width: 600px) {
+    h1{
+        font-size: 5vw !important;
+    }
+
+h4{
+    font-size: 3.5vw !important; 
+}
+h6{
+    font-size: 3vw !important;
+}
+p{
+    font-size: 3vw  !important;
+}
+h5{
+    font-size: 3.5vw !important;
+}
+}
+
+
+.error-box {
+    border: 1px solid red !important;
+  }
+  .success-box {
+    border: 2px solid greenyellow !important;
+  }
+  .err {
+    font-size: small;
+    color: red;
+    @media  only screen and (max-width: 600px) {
+   font-size: 2vw;
+    }
+  }
+
+.input_group{
+    display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+#input {
+    outline: none;
+    border: none;
+    width: 30vw;
+    height: 8vh;
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #ffffff;
+    font-size: 14px;
+@media  only screen and (max-width: 600px) {
+    width: 70vw;
+    height: 4vh;
+    font-size: 10px;
+
+}
+  }
+  .show {
+    color: $primary;
+    font-size: large;
+    font-weight: bolder;
+    cursor: pointer;
+@media  only screen and (max-width: 600px) {
+    font-size: 2.5vw;
+}
+  }
+  #inputp {
+    outline: none;
+    border: none;
+    width: 30vw;
+   
+    border-radius: 50px;
+    background-color: #ffffff;
+    font-size: 14px;
+    @media  only screen and (max-width: 600px) {
+        width: 70vw;
+        font-size: 10px;
+    
+    }
+  }
+  #inputpp {
+    outline: none;
+    border: none;
+    width: 80%;
+    height: 8vh;
+
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #ffffff;
+    font-size: 14px;
+    @media  only screen and (max-width: 600px) {
+    height: 4vh;
+       
+    font-size: 10px;
+    
+    }
+  }
