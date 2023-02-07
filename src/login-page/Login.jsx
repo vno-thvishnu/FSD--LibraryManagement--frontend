@@ -71,7 +71,7 @@ function Login() {
     <>
             <div className={styles.top}>
               <form className={styles.form_container}>
-                <h1>Secret Bookracks</h1>
+                <h1>Secret <span>Bookracks</span></h1>
                 <div className="input_group">
                 <input
                   type="email"

@@ -70,6 +70,7 @@
         font-size: 1.5vw;
         h4 {
           font-weight: 500;
+          color: $secondary;
         }
         p {
           font-family: $font1;
@@ -83,6 +84,7 @@
         }
         :nth-child(5n-1) {
           font-weight: lighter;
+          color: $secondary;
 
           font-size: 1vw;
           span {

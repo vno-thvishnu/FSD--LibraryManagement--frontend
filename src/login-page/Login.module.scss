@@ -15,7 +15,11 @@ gap: 0.5rem;
 
 h1{
     margin-bottom: 1rem;
+    font-weight: lighter;
     color: $primary;
+    span{
+        font-weight: bold;
+    }
     @media  only screen and (max-width: 600px) {
         margin-bottom: 0.5rem;
     }
