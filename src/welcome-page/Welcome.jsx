@@ -25,7 +25,7 @@ function Welcome() {
               <h5>
                 <span>Admin</span> login here
               </h5>
-              <Link to="/login_page" className={`forbutton ${css.forbutton}`}>Next page</Link>
+              <Link to="/layout" className={`forbutton ${css.forbutton}`}>Next page</Link>
             </div>
           </div>
           <div className={css.contentbox__right}>

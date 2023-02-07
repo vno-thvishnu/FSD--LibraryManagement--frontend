@@ -69,7 +69,6 @@ function Login() {
 
   return (
     <>
-     
             <div className={styles.top}>
               <form className={styles.form_container}>
                 <h1>Secret Bookracks</h1>
@@ -132,10 +131,14 @@ function Login() {
                   Login
                 </button>
                 <div className={styles.forgot_change}>
-                  <Link to="/forgotpassword" className={styles.forgot}>
+                  <Link
+                   to="/login_page/forgotpassword"
+                    className={styles.forgot}>
                     Forgot password
                   </Link>
-                  <Link to="/changepassword" className={styles.forgot}>
+                  <Link
+                   to="/login_page/changepassword" 
+                   className={styles.forgot}>
                     Change password
                   </Link>
                 </div>
@@ -146,11 +149,17 @@ function Login() {
                 Are you New 
                 Admin ?
               </h5>
-              <Link to="/signup" className={styles.forgot}>
+              <Link to="signup" className={styles.forgot}>
                   Create Account
               </Link>
             </div>
+
+            
         
+
+
+
+
     </>
   );
 }

@@ -27,6 +27,7 @@ h1{
     text-decoration: none;
     color: $primary;
     opacity: 70%;
+    font-size: 2.5vh;
 @media  only screen and (max-width: 600px) {
     font-size: 2.5vw;
 }
@@ -63,6 +64,7 @@ h1{
     .forgot {
         text-decoration: none;
         color: $primary;
+    font-size: 2.5vh;
       
         opacity: 70%;
         @media  only screen and (max-width: 600px) {

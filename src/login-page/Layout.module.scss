@@ -4,19 +4,20 @@
 .overallbg{
     min-width: 100vw;
     min-height: 100vh;
-  background: linear-gradient($primary 50%, $tertiary 50%);
+  background: linear-gradient(  #001611  ,#013d2d 50% , $tertiary 50%);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 
   .container_box{
     background-color: $tertiary;
     padding: 2rem;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.1),
-        rgba(255, 255, 255, 0)
-      );
+    // background: linear-gradient(
+    //     135deg,
+    //     rgba(255, 255, 255, 0.1),
+    //     rgba(255, 255, 255, 0)
+    //   );
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-top-left-radius: 100px;
@@ -36,6 +37,10 @@ gap: 0.5rem;
 border-top-left-radius: 50px;
 border-bottom-right-radius: 50px;
     }   
+  }
+  .welcomeback{
+    margin-top: 30px;
+    background-color: $tertiary !important;
   }
 
 }

@@ -3,7 +3,8 @@ import css from "./Layout.module.scss";
 import rack1 from "../assets/rack1.png";
 import rack2 from "../assets/rack2.png";
 import rack3 from "../assets/rack3.png";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import {BiArrowBack} from "react-icons/bi"
 
 function layout() {
   return (
@@ -11,6 +12,7 @@ function layout() {
       <div className={css.overallbg}>
         {/* <img src={rack1}/> */}
         <div className={css.container_box}>
+          <>
           {/* <h2>Secret Bookracks</h2>
           <div className={css.input_box}>
 
@@ -35,8 +37,11 @@ function layout() {
             <button className="forbutton">Login</button>
 
           </div> */}
+          </>
           <Outlet/>
         </div>
+        <Link to="/" className={`forback ${css.welcomeback}`}> <BiArrowBack/> Welcome page</Link>
+
       </div>
     </>
   );

@@ -4,7 +4,7 @@
     padding-left: 5%;
     padding-right: 5%;
     border-radius: 15px;
-    font-size: 1vw;
+    font-size: 1.2vw;
     cursor: pointer;
     background-color: $primary;
     text-decoration: none;
@@ -13,6 +13,13 @@
     font-size: 2.5vw !important;
 
 }
+}
+.forback{
+    text-decoration: none;
+    color: $secondarylow;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 @media  only screen and (max-width: 600px) {
@@ -66,7 +73,7 @@ align-items: center;
     font-size: 14px;
 @media  only screen and (max-width: 600px) {
     width: 70vw;
-    height: 4vh;
+    height: 9vw;
     font-size: 10px;
 
 }
@@ -105,7 +112,7 @@ align-items: center;
     background-color: #ffffff;
     font-size: 14px;
     @media  only screen and (max-width: 600px) {
-    height: 4vh;
+    height: 9vw;
        
     font-size: 10px;
     
