@@ -4,7 +4,9 @@
 .overallbg{
     min-width: 100vw;
     min-height: 100vh;
-  background: linear-gradient(  #001611  ,#013d2d 50% , $tertiary 50%);
+  // background: linear-gradient(  #001611  ,#013d2d 50% , $tertiary 50%);
+  background: linear-gradient(  #015e45   ,#001611 50% , $tertiary 50%);
+
   display: flex;
   align-items: center;
   justify-content: center;
