@@ -4,10 +4,14 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
-
+import { config } from "../config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
 function Login() {
+  const navigate=useNavigate(); 
 
 
   const formik = useFormik({
@@ -41,15 +45,45 @@ function Login() {
     },
     onSubmit: async (values) => {
       try {
-        const createAcc = await axios.post(`/login`, values);
+        setButtonLoading(true)
 
-        if (createAcc.data.message === "Login successfully") {
+        const createAcc = await axios.post(`${config.api}/admin/login`, values);
+
+        if (createAcc.data.message === "Admin Login successfully") {
+          toast.success("Login Successfully", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          setTimeout(() => formik.resetForm(), 3000);
+        setButtonLoading(false)
+
+          setTimeout(() => navigate("/dashboard"), 5500);
 
           formik.resetForm();
-        } else {
+        }
+        if (
+          createAcc.data.message === "email or password incorrect"
+        ) {
+          toast.error("Email or password incorrect", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        setButtonLoading(false)
         }
       } catch (error) {
-        alert("error");
+        // alert("error");
       }
     },
   });
@@ -65,6 +99,8 @@ function Login() {
       setPasswordDisplay("Show");
     }
   };
+
+  const[buttonLoading,setButtonLoading]=useState(false)
   
 
   return (
@@ -123,21 +159,38 @@ function Login() {
                 ) : null}
              </div>
 
-                <button
-                  onClick={formik.handleSubmit}
-                  type="submit"
-                  className="forbutton"
-                >
-                  Login
-                </button>
+             <button
+  onClick={formik.handleSubmit}
+  type="submit"
+  className="forbutton"
+>
+{buttonLoading?<>
+  <div class="box">
+    <div class="bouncing-bar">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+  </div>
+</>:
+
+                 "Login"
+
+
+}
+</button>
+
+
+
                 <div className={styles.forgot_change}>
                   <Link
-                   to="/login_page/forgotpassword"
+                   to="/layout/forgotpassword"
                     className={styles.forgot}>
                     Forgot password
                   </Link>
                   <Link
-                   to="/login_page/changepassword" 
+                   to="/layout/changepassword" 
                    className={styles.forgot}>
                     Change password
                   </Link>
@@ -158,6 +211,19 @@ function Login() {
         
 
 
+            <ToastContainer
+            transition={Flip}
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
 
 
     </>

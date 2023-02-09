@@ -1,12 +1,17 @@
 import axios from "axios";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-// import { config } from "../config";
+import { Link, useNavigate } from "react-router-dom";
+import { config } from "../config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
 
 import styles from "./Signup.module.scss";
 
 function Signup() {
+
+  const navigate=useNavigate(); 
 
 
   const formik = useFormik({
@@ -70,14 +75,40 @@ function Signup() {
     },
     onSubmit: async (values) => {
       try {
-        const createAcc = await axios.post(`/register`, values);
+        setButtonLoading(true)
+        const createAcc = await axios.post(`${config.api}/admin/register`, values);
 
-        if (createAcc.data.message === "Account created successfully") {
-          formik.resetForm();
+        if (createAcc.data.message === "Admin Account created successfully") {
+          toast.success("Successfully Created", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          setTimeout(() => formik.resetForm(), 3000);
+        setButtonLoading(false)
+
+          setTimeout(() => navigate("/layout"), 5500);
+
         }
         if (
           createAcc.data.message === "Email-id already registered, use another"
         ) {
+          toast.error("Email-id already registered, use another", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        setButtonLoading(false)
         }
       } catch (error) {
         alert("error");
@@ -109,6 +140,7 @@ function Signup() {
       setPasswordDisplayTwo("Show");
     }
   };
+  const[buttonLoading,setButtonLoading]=useState(false)
 
  
 
@@ -127,7 +159,7 @@ function Signup() {
                 name="name"
                 value={formik.values.name}
                 onChange={formik.handleChange}
-                required
+                onBlur={formik.handleBlur}
                 id={styles.input}
                 className={`
 							${formik.touched.name && formik.errors.name ? "error-box" : ""}
@@ -136,7 +168,7 @@ function Signup() {
 							`}
               />
               {formik.touched.name && formik.errors.name ? (
-                <span className="err" style={{ color: "red" }}>
+                <span className="err" >
                   {formik.errors.name}{" "}
                 </span>
               ) : null}
@@ -147,7 +179,7 @@ function Signup() {
                 name="email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
-                required
+                onBlur={formik.handleBlur}
                 id={styles.input}
                 className={`
 							${formik.touched.email && formik.errors.email ? "error-box" : ""}
@@ -156,7 +188,7 @@ function Signup() {
 							`}
               />
               {formik.touched.email && formik.errors.email ? (
-                <span className="err" style={{ color: "red" }}>
+                <span className="err" >
                   {formik.errors.email}{" "}
                 </span>
               ) : null}
@@ -175,7 +207,7 @@ function Signup() {
                   name="password"
                   value={formik.values.password}
                   onChange={formik.handleChange}
-                  required
+                onBlur={formik.handleBlur}
                   id={styles.inputpp}
                 />
                 <span onClick={changeType} className={styles.show}>
@@ -183,7 +215,7 @@ function Signup() {
                 </span>
               </div>
               {formik.touched.password && formik.errors.password ? (
-                <span className="err" style={{ color: "red" }}>
+                <span className="err" >
                   {formik.errors.password}{" "}
                 </span>
               ) : null}
@@ -209,7 +241,7 @@ function Signup() {
                   name="confirmpassword"
                   value={formik.values.confirmpassword}
                   onChange={formik.handleChange}
-                  required
+                onBlur={formik.handleBlur}
                   id={styles.inputpp}
                 />
                 <span onClick={changeTypeTwo} className={styles.show}>
@@ -218,7 +250,7 @@ function Signup() {
               </div>
               {formik.touched.confirmpassword &&
               formik.errors.confirmpassword ? (
-                <span className="err" style={{ color: "red" }}>
+                <span className="err" >
                   {formik.errors.confirmpassword}{" "}
                 </span>
               ) : null}
@@ -229,7 +261,22 @@ function Signup() {
                 type="submit"
                 className="forbutton"
               >
-                Create
+                {buttonLoading?<>
+  <div class="box">
+    <div class="bouncing-bar">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+  </div>
+</>:
+
+                "Create"
+                
+
+
+}
               </button>
             </form>
           </div>
@@ -237,7 +284,19 @@ function Signup() {
           <Link to="/layout"className={'forback ${style.forgot}'}>Back</Link>
 
       
-    
+          <ToastContainer
+            transition={Flip}
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 }
