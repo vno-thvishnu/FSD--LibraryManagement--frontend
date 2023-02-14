@@ -7,6 +7,13 @@ import Login from './login-page/Login';
 import Signup from './login-page/Signup';
 import Forgotpassword from './login-page/Forgotpassword';
 import Changepassword from './login-page/Changepassword';
+import Dashboard from './dashboard components/Dashboard';
+import Addbooks from './dashboard components/Addbooks';
+import Updatebooks from './dashboard components/Updatebooks';
+import User from './user components/User'
+import Adduser from './user components/Adduser'
+import Updateuser from './user components/Updateuser'
+
 
 function App() {
   return (
@@ -23,7 +30,18 @@ function App() {
 
 
         </Route>
+<Route path='/dashboard' element={<Dashboard/>}/>
+<Route path='/addbooks' element={<Addbooks/>}/>
+<Route path='/updatebooks/:_id' element={<Updatebooks/>}/>
 
+<Route path='/user' element={<User/>}/> 
+<Route path='/addusers' element={<Adduser/>}/> 
+<Route path='/updateusers/:_id' element={<Updateuser/>}/>
+
+
+
+
+  
       </Routes>
       </BrowserRouter>
     </div>

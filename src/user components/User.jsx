@@ -1,0 +1,381 @@
+import React, { useEffect, useState } from 'react'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import styles from "../dashboard components/Dashboard.module.scss"
+import {MdAccountCircle} from "react-icons/md"
+import {TbListSearch} from "react-icons/tb"
+import {FiUserPlus} from "react-icons/fi"
+import {CiEdit} from "react-icons/ci"
+import {ImBooks} from "react-icons/im"
+import {RiDashboardFill} from 'react-icons/ri'
+
+import {HiUsers} from "react-icons/hi"
+import {AiOutlineDelete} from "react-icons/ai"
+import axios from 'axios'
+import { config } from "../config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
+
+
+
+function Dashboard() {
+    const navigate=useNavigate()
+    const [pageLoading,setPageLoading]=useState(true)
+    const [pageData,setPageData]=useState(false)
+    const[userLoading,setUserLoading]=useState(false)
+
+const[storeLoginby,setStoreLoginby]=useState([])
+const[storeUsers,setStoreUsers]=useState([])
+const removeLocalkey = () => {
+  localStorage.removeItem("loadkey");
+
+};
+
+    useEffect(()=>{
+    // setPageLoading(true)
+    if(localStorage.ticket=== undefined){
+setPageData(true)
+    }else if(localStorage.loadkey==="loading"){
+        // setPageLoading(true)
+        getLoginBy()
+        getUsers()
+      
+        setTimeout(() => 
+        setPageLoading(false), 6000);
+        setTimeout(() => 
+removeLocalkey()
+, 7000);
+
+
+    }else  if(localStorage.loadkey=== undefined){
+      setPageLoading(false)
+
+      getLoginBy()
+      getUsers()
+
+    }
+
+    },[])
+
+    const getLoginBy = async () => {
+        try {
+          const server = await axios.get(
+            `${config.api}/admin/login_by/${localStorage.getItem(
+              "ticket"
+            )}`
+          );
+
+          setStoreLoginby(server.data);
+        } catch (error) {
+        }
+      };
+    
+      const getUsers = async () => {
+        try {
+          setUserLoading(true)
+          const server = await axios.get(
+            `${config.api}/view_users`
+          );
+
+          setStoreUsers(server.data);
+          setUserLoading(false)
+
+          console.log(server.data)
+        } catch (error) {
+        }
+      };
+        const removeLocalstorgae = () => {
+          localStorage.removeItem("ticket");
+      
+          navigate("/");
+        };
+const openaddusers=()=>{
+  navigate("/addusers")
+}
+
+const [openDelete,setOpenDelete]=useState(false)
+const [storeDeletingName,setStoreDeletingName]=useState([])
+const [storeDeletingId,setStoreDeletingId]=useState([])
+const[deleteLoading,setDeleteLoading]=useState(true)
+
+const opendelete=(name,_id)=>{
+setOpenDelete(true)
+setStoreDeletingName(name)
+setStoreDeletingId(_id)
+
+}
+
+const deleteuser= async (_id) => {
+  try {
+    setDeleteLoading(false)
+
+    const server = await axios.delete(`${config.api}/delete_user/${_id}`);
+    if (server.data.message === "user deleted successfully") {
+        toast.success("User deleted successfully", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        setOpenDelete(false)
+    setDeleteLoading(true)
+    
+
+
+        setTimeout(() => getUsers(), 1500);
+
+      }
+     
+  } catch (error) {
+    alert("error");
+  }
+}
+
+  return (
+   <>
+  
+   {pageData? <>
+    <div className={styles.page_bg}>
+
+    <h1>please Login</h1></div>
+   </> :
+   <>
+     {pageLoading ?<>
+
+<div className='bookbg'>
+<div class=" book">
+  <figure class="page"></figure>
+  <figure class="page"></figure>
+  <figure class="page"></figure>
+</div>
+
+<h1 className='loadingh1'>Reading</h1>
+       
+   </div>
+        </>:
+         <>
+        {/* {localStorage.loadkey===undefined?<>
+        
+<div className='bookbg pindex'>
+<div class="loader book">
+  <figure class="page"></figure>
+  <figure class="page"></figure>
+  <figure class="page"></figure>
+</div>
+
+<h1 className='loadingh1'>Reading</h1>
+       
+   </div>
+        </>:""} */}
+         <div className={styles.page_bg}>
+         <div className={styles.nav_bar}>
+                <div className={styles.company_name}>
+                 <h2>Secert Bookracks</h2>
+                </div>
+                <div className={styles.others}>
+                  <ul>
+                    <li>
+                      <li onClick={()=>{navigate("/dashboard")}}>
+                        {/* <ImBooks/> Books */}
+                       <RiDashboardFill/>Dashboard
+                        
+                        </li>
+                    </li>
+                    <li ><HiUsers/> Users</li>
+      
+                  
+                  </ul>
+      
+                
+                </div>
+              </div>
+      
+                <div className={styles.login_person_admin}>
+                    <div className={styles.details}>
+                    {/* <span>|</span> */}
+                    {/* <span>
+                      <MdAccountCircle />
+                    </span> */}
+      
+                    <span>
+                      {/* {storeLoginby.name} */}{storeLoginby.name}
+                      </span>
+                    {/* <span>|</span> */}
+                    </div>
+
+                  <div className={styles.logout} onClick={removeLocalstorgae}>Logout</div>
+
+      
+                  </div>
+
+                  <div className={styles.bookdiv}>
+                  <div className={styles.search_content}>
+                  <h4 onClick={openaddusers}><FiUserPlus/> Add New User</h4> 
+          <div className={styles.search_bar}>
+          <div
+                  id="inputs"
+                
+                >
+                  <input
+                    type="text"
+                    placeholder="Type user name's to search"
+                    name="text"
+                    // value={formik.values.password}
+                    // onChange={formik.handleChange}
+                    // required
+                    id="inputss"
+                  />
+                  <span className="shows"  >
+                    <TbListSearch/> Search
+                  </span>
+                </div>
+          </div>
+
+          <div className={styles.bookcontainer}>
+          {
+            userLoading?<>
+           <div class="box">
+    <div class="bouncing-bar">
+      <div class="line line_two"></div>
+      <div class="line line_two"></div>
+      <div class="line line_two"></div>
+      <div class="line line_two"></div>
+    </div>
+  </div>
+            </>:
+            <>
+              {
+              storeUsers.map((get)=>{
+                return(
+<>
+<div className={styles.book_box}>
+{/* // style={{backgroundImage:`url(${get.cover_photo})`}} */}
+
+ <div className={styles.book_box_top}>
+  <div className={styles.book_box_top_btn_left_two}
+  >
+<h2   
+  // onClick={openupdate(get._id)}
+
+>
+
+<Link className={styles.link} to={`/updateusers/${get._id}`}>
+<CiEdit/>
+
+</Link>
+</h2>
+    </div>
+<div className={styles.book_box_img_two}>
+  <img src={`https://avatars.dicebear.com/v2/avataaars/${get.user_name}.svg?options[mood][]=happy`}/>
+</div>
+  <div className={styles.book_box_top_btn_right_two}>
+    <h2 
+    onClick={()=>opendelete(get.user_name,get._id)}
+    >
+      <AiOutlineDelete/>
+    </h2>
+    </div>
+  
+ </div>
+ <div className={styles.book_box_bottom}>
+  <h5><b>Name : </b>{get.user_name}</h5>
+  <h5><b>Email : </b>{get.email}</h5>
+  <h5><b>Mobile : </b>{get.mobile_no}</h5>
+
+  {/* <div>
+    <h5><b>Total Books :</b>{get.quantity}</h5>
+    <h5><b>On Rack :</b>2</h5>
+    </div>
+    <h5><b>Status :</b>{get.status}</h5>
+
+    <a  target="_blank" href={get.documentation}>for documentation click here</a> */}
+  
+  </div>
+
+  </div>
+
+  
+
+</>  )      
+      })
+            }
+            </>
+          }
+          </div>
+        </div>
+                  </div>
+         </div>
+         </>
+        }
+        </>
+   }
+   
+
+   {openDelete?<>
+<div className={styles.delete_div}>
+  <div className={styles.delete_bg}
+    onClick={()=>{setOpenDelete(false);setDeleteLoading(true)}}
+  ></div>
+  <div className={styles.content_box}>
+    { deleteLoading?<>
+      <h2>Are sure want delete<span> {storeDeletingName} </span>  ?</h2>
+    <div className={styles.content_box_btn}>
+      <button className={`forbuttonfullscreen ${styles.red_btn}`}
+      onClick={()=>{setOpenDelete(false)}}
+      >
+No
+      </button>
+      <button className={`forbuttonfullscreen ${styles.green_btn}`}
+        onClick={()=>{deleteuser(storeDeletingId)}}
+      >
+Yes
+      </button>
+    </div>
+
+    </>:<>
+    <h2> deleting <span> {storeDeletingName} </span> ?</h2>
+    <div className={styles.content_box_btn}>
+    <div class="box">
+    <div class="bouncing-bar">
+      <div class="line line_two"></div>
+      <div class="line line_two"></div>
+      <div class="line line_two"></div>
+      <div class="line line_two"></div>
+    </div>
+  </div></div>
+    </>}
+  
+  </div>
+  
+</div>
+</>:""}
+
+
+
+<ToastContainer
+            transition={Flip}
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+
+   </>
+  )
+}
+
+export default Dashboard
+
+
+
+// https://avatars.dicebear.com/v2/avataaars/vijay.svg?options[mood][]=happy

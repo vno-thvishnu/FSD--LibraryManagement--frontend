@@ -50,6 +50,10 @@ function Login() {
         const createAcc = await axios.post(`${config.api}/admin/login`, values);
 
         if (createAcc.data.message === "Admin Login successfully") {
+          localStorage.setItem("ticket", createAcc.data.admin_id);
+          localStorage.setItem("loadkey", "loading");
+
+
           toast.success("Login Successfully", {
             position: "top-center",
             autoClose: 3000,
@@ -63,7 +67,7 @@ function Login() {
           setTimeout(() => formik.resetForm(), 3000);
         setButtonLoading(false)
 
-          setTimeout(() => navigate("/dashboard"), 5500);
+          setTimeout(() => navigate("/dashboard"), 5000);
 
           formik.resetForm();
         }
@@ -115,7 +119,7 @@ function Login() {
                   name="email"
                   value={formik.values.email}
                   onChange={formik.handleChange}
-                  required
+                onBlur={formik.handleBlur}
                   id="input"
                   className={`
 							${formik.touched.email && formik.errors.email ? "error-box" : ""}
@@ -145,7 +149,7 @@ function Login() {
                     name="password"
                     value={formik.values.password}
                     onChange={formik.handleChange}
-                    required
+                onBlur={formik.handleBlur}
                     id="inputpp"
                   />
                   <span onClick={changeType} className="show">

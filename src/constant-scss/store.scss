@@ -36,6 +36,15 @@
     
     animation-delay: 0.4s; }
 }
+.line_two{
+  background: $secondary;
+  height: 2.2vw;
+  width: 0.3vw;
+@media  only screen and (max-width: 600px) {
+  height: 4vw;
+  width: 0.6vw;
+}
+}
 
 @keyframes line-bounce {
   0% { transform: scale(1); }
@@ -64,6 +73,30 @@
 
 }
 }
+.forbuttonfullscreen{
+  border: none;
+  padding: 1%;
+  padding-left: 3%;
+  padding-right: 3%;
+  border-radius: 15px;
+  font-size: 1.2vw;
+  cursor: pointer;
+  background-color: $primary;
+  text-decoration: none;
+  color:$tertiary ;
+@media  only screen and (max-width: 600px) {
+  padding: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+  font-size: 2.5vw !important;
+
+}
+}
+.forlink{
+  // color:noe;
+  text-decoration: none;
+}
+
 .forback{
     text-decoration: none;
     color: $secondarylow;
@@ -133,6 +166,38 @@ align-items: center;
 
 }
   }
+  #inputnum {
+    outline: none;
+    border: none;
+    width: 10vw;
+    height: 8vh;
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #ffffff;
+    font-size: 14px;
+@media  only screen and (max-width: 600px) {
+    width: 70vw;
+    height: 9vw;
+    font-size: 10px;
+
+}
+  }
+  #inputlink {
+    outline: none;
+    border: none;
+    width: 72.5vw;
+    height: 8vh;
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #ffffff;
+    font-size: 14px;
+@media  only screen and (max-width: 600px) {
+    width: 70vw;
+    height: 9vw;
+    font-size: 10px;
+
+}
+  }
   .show {
     color: $primary;
     // font-size:smaller;
@@ -172,4 +237,56 @@ align-items: center;
     font-size: 10px;
     
     }
+    
   }
+
+  #inputs {
+    outline: none;
+    border: none;
+    width: 40vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   border: 1px solid $primary;
+    border-radius: 50px;
+    background-color: $tertiary;
+    font-size: 14px;
+    @media  only screen and (max-width: 600px) {
+        width: 80vw;
+        font-size: 10px;
+    
+    }
+  }
+  #inputss {
+    outline: none;
+    border: none;
+    width: 80%;
+    height: 8vh;
+
+    padding: 10px;
+    border-radius: 50px;
+    background-color: $tertiary;
+    font-size: 14px;
+    @media  only screen and (max-width: 600px) {
+    height: 9vw;
+       
+    font-size: 10px;
+    
+    }}
+    .shows {
+      // width: 20%;
+      color: $primary;
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      // background-color: red;
+      // font-size:smaller;
+      font-weight:bold;
+      cursor: pointer;
+  @media  only screen and (max-width: 600px) {
+      font-size: 2.5vw;
+      gap: 0.2rem;
+
+  }
+    }
