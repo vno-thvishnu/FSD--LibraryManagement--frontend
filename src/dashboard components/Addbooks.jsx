@@ -1,36 +1,37 @@
-import axios from 'axios';
-import { useFormik } from 'formik';
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import styles from "./Addbooks.module.scss"
+import axios from "axios";
+import { useFormik } from "formik";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styles from "./Addbooks.module.scss";
 import { config } from "../config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
-
+import { Slide, Zoom, Flip, Bounce } from "react-toastify";
 
 function Addbooks() {
-    const navigate=useNavigate(); 
+  const navigate = useNavigate();
 
+  const formik = useFormik({
+    initialValues: {
+      book_name: "",
+      author: "",
+      cover_photo: "",
+      quantity: "",
+      documentation: "",
+    },
+    validate: (values) => {
+      let error = {};
+      if (values.book_name === "") {
+        error.book_name = "please enter name";
+      }
 
-    const formik = useFormik({
-        initialValues: {
-          book_name: "",
-          author: "",
-          cover_photo: "",
-          quantity:"",
-          documentation: "",
-        },
-        validate:(values)=>{
-            let error={};
-            if (values.book_name === "") {
-                error.book_name = "please enter name";
-              }
-              
       if (values.author === "") {
         error.author = "please enter author name";
       }
-      if (values.author && (values.author.length <= 2 || values.author.length > 25)) {
+      if (
+        values.author &&
+        (values.author.length <= 2 || values.author.length > 25)
+      ) {
         error.author = "Author name must be between 3 to 25 characters";
       }
 
@@ -44,202 +45,193 @@ function Addbooks() {
         error.cover_photo = "please enter valid picture link";
       }
       if (values.documentation === "") {
-        error.documentation= "please enter valid link";
+        error.documentation = "please enter valid link";
       }
       return error;
+    },
+    onSubmit: async (values) => {
+      try {
+        setButtonLoading(true);
 
-        },
-        onSubmit: async (values) => {
-          try {
-            setButtonLoading(true)
-
-            const server = await axios.post(`${config.api}/add_books`, values);
-            if (server.data.message === "Book added successfully") {
-                toast.success("Book added successfully", {
-                  position: "top-center",
-                  autoClose: 3000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "dark",
-                });
-                setTimeout(() => formik.resetForm(), 3000);
-              setButtonLoading(false)
-      
-                // setTimeout(() => navigate("/dashboard"), 5500);
-      
-              }
-              if (
-                server.data.message === "Book name already there, use another"
-              ) {
-                toast.error("Book name already there, use another", {
-                  position: "top-center",
-                  autoClose: 3000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "dark",
-                });
-              setButtonLoading(false)
-              }
-          } catch (error) {
-            alert("error");
-          }
-        },
-      });
-  const[buttonLoading,setButtonLoading]=useState(false)
+        const server = await axios.post(`${config.api}/add_books`, values);
+        if (server.data.message === "Book added successfully") {
+          toast.success("Book added successfully", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          setTimeout(() => formik.resetForm(), 3000);
+          setButtonLoading(false);
+        }
+        if (server.data.message === "Book name already there, use another") {
+          toast.error("Book name already there, use another", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          setButtonLoading(false);
+        }
+      } catch (error) {
+        alert("error");
+      }
+    },
+  });
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   return (
     <>
       <div className={styles._bg}>
         <h1>Add New Books</h1>
         <form className={styles.form}>
-            <div className={styles.threeinput}>
-        <div className="input_group">
-                <input
-                  type="text"
-                  placeholder="Book name"
-                  name="book_name"
-                  value={formik.values.book_name}
-                  onChange={formik.handleChange}
+          <div className={styles.threeinput}>
+            <div className="input_group">
+              <input
+                type="text"
+                placeholder="Book name"
+                name="book_name"
+                value={formik.values.book_name}
+                onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                  id="input"
-                  className={`
+                id="input"
+                className={`
 							${formik.touched.book_name && formik.errors.book_name ? "error-box" : ""}
 							${formik.touched.book_name && !formik.errors.book_name ? "success-box" : ""}
    
 							`}
-                />
-                {formik.touched.book_name && formik.errors.book_name? (
-                  <span className="err" >
-                    {formik.errors.book_name}{" "}
-                  </span>
-                ) : null}
-                </div>
+              />
+              {formik.touched.book_name && formik.errors.book_name ? (
+                <span className="err">{formik.errors.book_name} </span>
+              ) : null}
+            </div>
 
-                <div className="input_group">
-                <input
-                  type="text"
-                  placeholder="Author name"
-                  name="author"
-                  value={formik.values.author}
-                  onChange={formik.handleChange}
+            <div className="input_group">
+              <input
+                type="text"
+                placeholder="Author name"
+                name="author"
+                value={formik.values.author}
+                onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                  id="input"
-                  className={`
+                id="input"
+                className={`
 							${formik.touched.author && formik.errors.author ? "error-box" : ""}
-							${formik.touched.author && !formik.errors.author? "success-box" : ""}
+							${formik.touched.author && !formik.errors.author ? "success-box" : ""}
    
 							`}
-                />
-                {formik.touched.author && formik.errors.author? (
-                  <span className="err" >
-                    {formik.errors.author}{" "}
-                  </span>
-                ) : null}
-                </div>
+              />
+              {formik.touched.author && formik.errors.author ? (
+                <span className="err">{formik.errors.author} </span>
+              ) : null}
+            </div>
 
-                <div className="input_group">
-                <input
-                  type="number"
-                  placeholder="Quantity"
-                  name="quantity"
-                  value={formik.values.quantity}
-                  onChange={formik.handleChange}
+            <div className="input_group">
+              <input
+                type="number"
+                placeholder="Total books"
+                name="quantity"
+                value={formik.values.quantity}
+                onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                  id="inputnum"
-                  className={`
+                id="inputnum"
+                className={`
 							${formik.touched.quantity && formik.errors.quantity ? "error-box" : ""}
-							${formik.touched.quantity && !formik.errors.quantity? "success-box" : ""}
+							${formik.touched.quantity && !formik.errors.quantity ? "success-box" : ""}
    
 							`}
-                />
-                {formik.touched.quantity && formik.errors.quantity? (
-                  <span className="err" >
-                    {formik.errors.quantity}{" "}
-                  </span>
-                ) : null}
-                </div>
-                </div>
+              />
+              {formik.touched.quantity && formik.errors.quantity ? (
+                <span className="err">{formik.errors.quantity} </span>
+              ) : null}
+            </div>
+          </div>
 
-                <div className="input_group">
-                <input
-                  type="text"
-                  placeholder="Cover picture link"
-                  name="cover_photo"
-                  value={formik.values.cover_photo}
-                  onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                  id="inputlink"
-                  className={`
-							${formik.touched.cover_photo && formik.errors.cover_photo? "error-box" : ""}
-							${formik.touched.cover_photo && !formik.errors.cover_photo? "success-box" : ""}
+          <div className="input_group">
+            <input
+              type="text"
+              placeholder="Cover picture link"
+              name="cover_photo"
+              value={formik.values.cover_photo}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              id="inputlink"
+              className={`
+							${formik.touched.cover_photo && formik.errors.cover_photo ? "error-box" : ""}
+							${formik.touched.cover_photo && !formik.errors.cover_photo ? "success-box" : ""}
    
 							`}
-                />
-                {formik.touched.cover_photo && formik.errors.cover_photo? (
-                  <span className="err" >
-                    {formik.errors.cover_photo}{" "}
-                  </span>
-                ) : null}
-                </div>
+            />
+            {formik.touched.cover_photo && formik.errors.cover_photo ? (
+              <span className="err">{formik.errors.cover_photo} </span>
+            ) : null}
+          </div>
 
-                <div className="input_group">
-                <input
-                  type="text"
-                  placeholder="Documentation link"
-                  name="documentation"
-                  value={formik.values.documentation}
-                  onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                  id="inputlink"
-                  className={`
-							${formik.touched.documentation && formik.errors.documentation? "error-box" : ""}
-							${formik.touched.documentation && !formik.errors.documentation? "success-box" : ""}
+          <div className="input_group">
+            <input
+              type="text"
+              placeholder="Documentation link"
+              name="documentation"
+              value={formik.values.documentation}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              id="inputlink"
+              className={`
+							${
+                formik.touched.documentation && formik.errors.documentation
+                  ? "error-box"
+                  : ""
+              }
+							${
+                formik.touched.documentation && !formik.errors.documentation
+                  ? "success-box"
+                  : ""
+              }
    
 							`}
-                />
-                {formik.touched.documentation && formik.errors.documentation? (
-                  <span className="err" >
-                    {formik.errors.documentation}{" "}
-                  </span>
-                ) : null}
-                </div>
-                <div className={styles.buttondiv}>
-                <button
-                onClick={formik.handleSubmit}
-                type="submit"
-                className="forbuttonfullscreen"
-              >
-                {buttonLoading?<>
-  <div class="box">
-    <div class="bouncing-bar">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-    </div>
-  </div>
-</>:
-
+            />
+            {formik.touched.documentation && formik.errors.documentation ? (
+              <span className="err">{formik.errors.documentation} </span>
+            ) : null}
+          </div>
+          <div className={styles.buttondiv}>
+            <button
+              onClick={formik.handleSubmit}
+              type="submit"
+              className="forbuttonfullscreen"
+            >
+              {buttonLoading ? (
+                <>
+                  <div class="box">
+                    <div class="bouncing-bar">
+                      <div class="line"></div>
+                      <div class="line"></div>
+                      <div class="line"></div>
+                      <div class="line"></div>
+                    </div>
+                  </div>
+                </>
+              ) : (
                 "Create"
-                
-
-
-}
-              </button></div>
+              )}
+            </button>
+          </div>
         </form>
-        <Link to="/dashboard"className={'forback ${style.forgot}'}>Back</Link>
-
+        <Link to="/dashboard" className={"forback ${style.forgot}"}>
+          Back
+        </Link>
       </div>
 
-
       <ToastContainer
-            transition={Flip}
+        transition={Flip}
         position="bottom-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -251,9 +243,8 @@ function Addbooks() {
         pauseOnHover
         theme="dark"
       />
-
     </>
-  )
+  );
 }
 
-export default Addbooks
+export default Addbooks;

@@ -1,18 +1,15 @@
 import React from "react";
 import { useFormik } from "formik";
-// import { config } from "../config";
 import axios from "axios";
 import { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
 import { config } from "../config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
+import { Slide, Zoom, Flip, Bounce } from "react-toastify";
 function Login() {
-  const navigate=useNavigate(); 
-
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -45,14 +42,13 @@ function Login() {
     },
     onSubmit: async (values) => {
       try {
-        setButtonLoading(true)
+        setButtonLoading(true);
 
         const createAcc = await axios.post(`${config.api}/admin/login`, values);
 
         if (createAcc.data.message === "Admin Login successfully") {
           localStorage.setItem("ticket", createAcc.data.admin_id);
           localStorage.setItem("loadkey", "loading");
-
 
           toast.success("Login Successfully", {
             position: "top-center",
@@ -65,15 +61,13 @@ function Login() {
             theme: "dark",
           });
           setTimeout(() => formik.resetForm(), 3000);
-        setButtonLoading(false)
+          setButtonLoading(false);
 
           setTimeout(() => navigate("/dashboard"), 5000);
 
           formik.resetForm();
         }
-        if (
-          createAcc.data.message === "email or password incorrect"
-        ) {
+        if (createAcc.data.message === "email or password incorrect") {
           toast.error("Email or password incorrect", {
             position: "top-center",
             autoClose: 3000,
@@ -84,7 +78,7 @@ function Login() {
             progress: undefined,
             theme: "dark",
           });
-        setButtonLoading(false)
+          setButtonLoading(false);
         }
       } catch (error) {
         // alert("error");
@@ -104,119 +98,104 @@ function Login() {
     }
   };
 
-  const[buttonLoading,setButtonLoading]=useState(false)
-  
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   return (
     <>
-            <div className={styles.top}>
-              <form className={styles.form_container}>
-                <h1>Secret <span>Bookracks</span></h1>
-                <div className="input_group">
-                <input
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                  id="input"
-                  className={`
+      <div className={styles.top}>
+        <form className={styles.form_container}>
+          <h1>
+            secret <span>Bookracks</span>
+          </h1>
+          <div className="input_group">
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              id="input"
+              className={`
 							${formik.touched.email && formik.errors.email ? "error-box" : ""}
 							${formik.touched.email && !formik.errors.email ? "success-box" : ""}
    
 							`}
-                />
-                {formik.touched.email && formik.errors.email ? (
-                  <span className="err" >
-                    {formik.errors.email}{" "}
-                  </span>
-                ) : null}
-                </div>
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <span className="err">{formik.errors.email} </span>
+            ) : null}
+          </div>
 
-             <div  className="input_group">
-             <div
-                  id="inputp"
-                  className={`
+          <div className="input_group">
+            <div
+              id="inputp"
+              className={`
 							${formik.touched.password && formik.errors.password ? "error-box" : ""}
 							${formik.touched.password && !formik.errors.password ? "success-box" : ""}
 
 							`}
-                >
-                  <input
-                    type={passwordType}
-                    placeholder="Password"
-                    name="password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
+            >
+              <input
+                type={passwordType}
+                placeholder="Password"
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                    id="inputpp"
-                  />
-                  <span onClick={changeType} className="show">
-                    {passwordDispaly}
-                  </span>
-                </div>
-                {formik.touched.password && formik.errors.password ? (
-                  <span className="err" style={{ color: "red" }}>
-                    {formik.errors.password}{" "}
-                  </span>
-                ) : null}
-             </div>
-
-             <button
-  onClick={formik.handleSubmit}
-  type="submit"
-  className="forbutton"
->
-{buttonLoading?<>
-  <div class="box">
-    <div class="bouncing-bar">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-    </div>
-  </div>
-</>:
-
-                 "Login"
-
-
-}
-</button>
-
-
-
-                <div className={styles.forgot_change}>
-                  <Link
-                   to="/layout/forgotpassword"
-                    className={styles.forgot}>
-                    Forgot password
-                  </Link>
-                  <Link
-                   to="/layout/changepassword" 
-                   className={styles.forgot}>
-                    Change password
-                  </Link>
-                </div>
-              </form>
+                id="inputpp"
+              />
+              <span onClick={changeType} className="show">
+                {passwordDispaly}
+              </span>
             </div>
-            <div className={styles.bottom}>
-              <h5>
-                Are you New 
-                Admin ?
-              </h5>
-              <Link to="signup" className={styles.forgot}>
-                  Create Account
-              </Link>
-            </div>
+            {formik.touched.password && formik.errors.password ? (
+              <span className="err" style={{ color: "red" }}>
+                {formik.errors.password}{" "}
+              </span>
+            ) : null}
+          </div>
 
-            
-        
+          <button
+            onClick={formik.handleSubmit}
+            type="submit"
+            className="forbutton"
+          >
+            {buttonLoading ? (
+              <>
+                <div class="box">
+                  <div class="bouncing-bar">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              "Login"
+            )}
+          </button>
 
+          <div className={styles.forgot_change}>
+            <Link to="/layout/forgotpassword" className={styles.forgot}>
+              Forgot password
+            </Link>
+            <Link to="/layout/changepassword" className={styles.forgot}>
+              Change password
+            </Link>
+          </div>
+        </form>
+      </div>
+      <div className={styles.bottom}>
+        <h5>Are you New Admin ?</h5>
+        <Link to="signup" className={styles.forgot}>
+          Create Account
+        </Link>
+      </div>
 
-            <ToastContainer
-            transition={Flip}
+      <ToastContainer
+        transition={Flip}
         position="bottom-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -228,8 +207,6 @@ function Login() {
         pauseOnHover
         theme="dark"
       />
-
-
     </>
   );
 }

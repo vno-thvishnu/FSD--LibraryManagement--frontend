@@ -1,5 +1,6 @@
 @import "../constant-scss/main.scss";
-._bg{
+
+._bg {
     min-width: 100vw;
     min-height: 100vh;
     background-color: $tertiary;
@@ -9,10 +10,12 @@
     padding: 2rem;
     gap: 1rem;
     flex-direction: column;
-    h1{
+
+    h1 {
         color: $secondary;
     }
-    .form{
+
+    .form {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -20,27 +23,101 @@
         padding-top: 1rem;
 
         flex-wrap: wrap;
-        .threeinput{
+
+        .namediv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            gap: 0.5rem;
+
+            @media only screen and (max-width: 600px) {
+                width: 70vw;
+            }
+        }
+
+        .threeinput {
             display: flex;
             gap: 1rem;
-@media  only screen and (max-width: 600px) {
-    flex-direction: column;
-}
+
+            @media only screen and (max-width: 600px) {
+                flex-direction: column;
+            }
         }
-        .threeinput_col{
+
+        .threeinput_col {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            p{
+
+            p {
                 color: grey;
             }
+
             gap: 1rem;
-@media  only screen and (max-width: 600px) {
-    flex-direction: column;
-}
+
+            @media only screen and (max-width: 600px) {
+                flex-direction: column;
+            }
         }
-        .buttondiv{
+
+        .buttondiv {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .formrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        padding-top: 1rem;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        .namediv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            gap: 0.5rem;
+
+            @media only screen and (max-width: 600px) {
+                width: 70vw;
+            }
+        }
+
+        .threeinput {
+            display: flex;
+            gap: 1rem;
+
+            @media only screen and (max-width: 600px) {
+                flex-direction: column;
+            }
+        }
+
+        .threeinput_col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            p {
+                color: grey;
+            }
+
+            gap: 1rem;
+
+            @media only screen and (max-width: 600px) {
+                flex-direction: column;
+            }
+        }
+
+        .buttondiv {
             width: 100%;
             display: flex;
             justify-content: center;

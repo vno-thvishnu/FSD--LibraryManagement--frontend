@@ -7,13 +7,12 @@ import { useState } from "react";
 import styles from "./Changepassword.module.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
+import { Slide, Zoom, Flip, Bounce } from "react-toastify";
 import css from "./Signup.module.scss";
 
-
 function Chnagepassword() {
-    const navigate=useNavigate(); 
- 
+  const navigate = useNavigate();
+
   const [emailDiv, setEmailDiv] = useState(true);
 
   const [adminPasswordDiv, setAdminPasswordDiv] = useState(false);
@@ -41,32 +40,30 @@ function Chnagepassword() {
     },
     onSubmit: async (values) => {
       try {
-setButtonLoading(true)
+        setButtonLoading(true);
 
         const server = await axios.post(`${config.api}/admin/change`, values);
 
-      
         if (server.data.message === "admin_id finded") {
-setButtonLoading(false)
+          setButtonLoading(false);
 
           setAdminPassId(server.data.email);
           setEmailDiv(false);
           setAdminPasswordDiv(true);
         }
         if (server.data.message === "Account not found in this email-Id") {
-            toast.error("Account not found in this email-Id", {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-              });
-            setButtonLoading(false)
+          toast.error("Account not found in this email-Id", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          setButtonLoading(false);
         }
-      
       } catch (error) {
         alert("error");
       }
@@ -79,7 +76,6 @@ setButtonLoading(false)
 
     adminformikpassword.resetForm();
   };
-
 
   const adminformikpassword = useFormik({
     initialValues: {
@@ -137,45 +133,44 @@ setButtonLoading(false)
     },
     onSubmit: async (values) => {
       try {
-setButtonLoading(true)
+        setButtonLoading(true);
 
         const server = await axios.put(
           `${config.api}/admin/change/${adminPassId}`,
           values
         );
         if (server.data.message === "Admin Password Changed Successfully") {
-            toast.success("Password Created Successfully", {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-              });
-          setTimeout(() =>  
-          adminformikpassword.resetForm()
+          toast.success("Password Created Successfully", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          setTimeout(
+            () => adminformikpassword.resetForm(),
 
-          
-          , 3000);
-          setButtonLoading(false)
-  
-            setTimeout(() => navigate("/layout"), 5500);
-  
+            3000
+          );
+          setButtonLoading(false);
+
+          setTimeout(() => navigate("/layout"), 5500);
         }
         if (server.data.message === "Current Password Incorrect") {
-            toast.error("Current Password Incorrect", {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-              });
-            setButtonLoading(false)
+          toast.error("Current Password Incorrect", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          setButtonLoading(false);
         }
       } catch (error) {
         alert("error");
@@ -183,34 +178,7 @@ setButtonLoading(true)
     },
   });
 
-//   const backfunction = () => {
-//     setEmailAlert(false);
-//     setEmailDiv(true);
-//     setCheck(false);
-//   };
-//   const [check, setCheck] = useState(false);
-//   const [openUser, setOpenUser] = useState(false);
-//   const [openAdmin, setOpenAdmin] = useState(false);
-
-//   const checking = () => {
-//     setCheck(true);
-//   };
-//   const admin = () => {
-//     checking();
-//     setOpenAdmin(true);
-//     setOpenUser(false);
-//   };
-//   const user = () => {
-//     checking();
-//     setOpenUser(true);
-//     setOpenAdmin(false);
-//   };
-//   const forOpen = () => {
-//     setEmailAlert(false);
-//     setAdminPasswordDiv(openAdmin);
-//     setUserPasswordDiv(openUser);
-//   };
-const[buttonLoading,setButtonLoading]=useState(false)
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   return (
     <>
@@ -248,22 +216,20 @@ const[buttonLoading,setButtonLoading]=useState(false)
                 type="submit"
                 className="forbutton"
               >
-                 {buttonLoading?<>
-  <div class="box">
-    <div class="bouncing-bar">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-    </div>
-  </div>
-</>:
-
-                "Proceed"
-                
-
-
-}
+                {buttonLoading ? (
+                  <>
+                    <div class="box">
+                      <div class="bouncing-bar">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  "Proceed"
+                )}
               </button>
 
               <Link to="/layout" className="forback">
@@ -271,9 +237,6 @@ const[buttonLoading,setButtonLoading]=useState(false)
               </Link>
             </>
           ) : null}
-
-
-       
 
           {adminPasswordDiv ? (
             <>
@@ -290,7 +253,6 @@ const[buttonLoading,setButtonLoading]=useState(false)
                 value={adminformikpassword.values.currentpassword}
                 onBlur={adminformikpassword.handleBlur}
                 onChange={adminformikpassword.handleChange}
-                
                 id={styles.input}
                 className={`
 							${
@@ -322,7 +284,6 @@ const[buttonLoading,setButtonLoading]=useState(false)
                 value={adminformikpassword.values.newpassword}
                 onBlur={adminformikpassword.handleBlur}
                 onChange={adminformikpassword.handleChange}
-            
                 id={styles.input}
                 className={`
 							${
@@ -354,7 +315,6 @@ const[buttonLoading,setButtonLoading]=useState(false)
                 value={adminformikpassword.values.confirmpassword}
                 onBlur={adminformikpassword.handleBlur}
                 onChange={adminformikpassword.handleChange}
-                
                 id={styles.input}
                 className={`
 							${
@@ -384,25 +344,23 @@ const[buttonLoading,setButtonLoading]=useState(false)
                 type="submit"
                 className="forbutton"
               >
-                 {buttonLoading?<>
-  <div class="box">
-    <div class="bouncing-bar">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-    </div>
-  </div>
-</>:
-
-                "Proceed"
-                
-
-
-}
+                {buttonLoading ? (
+                  <>
+                    <div class="box">
+                      <div class="bouncing-bar">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  "Proceed"
+                )}
               </button>
 
-              <button onClick={back}  className="forback" >
+              <button onClick={back} className="forback">
                 Back
               </button>
             </>
@@ -410,7 +368,7 @@ const[buttonLoading,setButtonLoading]=useState(false)
         </form>
       </div>
       <ToastContainer
-            transition={Flip}
+        transition={Flip}
         position="bottom-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -422,7 +380,6 @@ const[buttonLoading,setButtonLoading]=useState(false)
         pauseOnHover
         theme="dark"
       />
-
     </>
   );
 }
