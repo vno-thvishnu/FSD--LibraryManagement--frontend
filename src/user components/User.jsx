@@ -17,7 +17,7 @@ import { BsFillBookmarkStarFill } from "react-icons/bs";
 
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
 
-import { GiWhiteBook } from "react-icons/gi";
+import { RiFileUserFill } from "react-icons/ri";
 import { HiUsers } from "react-icons/hi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
@@ -468,7 +468,7 @@ function Dashboard() {
                           Borrowed <br /> Users
                         </span>
                         <span className={styles.dcbox_down_logo}>
-                          <GiWhiteBook />
+                          <RiFileUserFill />
                         </span>
                       </div>
                     </div>
