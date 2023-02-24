@@ -11,7 +11,7 @@ import { RiChatHistoryFill } from "react-icons/ri";
 import { HiUsers } from "react-icons/hi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { MdSpeakerNotes } from "react-icons/md";
-import rack1 from "../assets/rack3.png";
+import rack1 from "../assets/booknew.png";
 
 import { BsFillPinAngleFill } from "react-icons/bs";
 import { BsFillBookmarkStarFill } from "react-icons/bs";

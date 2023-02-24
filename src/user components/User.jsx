@@ -10,7 +10,7 @@ import { MdOutlineRecentActors } from "react-icons/md";
 import { RiChatHistoryLine } from "react-icons/ri";
 import { FcEmptyBattery } from "react-icons/fc";
 import { RiChatHistoryFill } from "react-icons/ri";
-import rack1 from "../assets/user.png";
+import rack1 from "../assets/usernew.png";
 
 import { BsFillPinAngleFill } from "react-icons/bs";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
