@@ -6,19 +6,23 @@
   background-color: white;
 
   .nav_bar {
-    display: grid;
+    // display: grid;
+    display: flex;
     //   background: linear-gradient( to left,  $primary  ,$secondary 90% );
     background-color: $primary;
     position: sticky;
     top: 0;
 
     @media only screen and (max-width: 600px) {
-      grid-template-columns: none;
+      // grid-template-columns: none;
+    flex-direction: column;
+
     }
 
     .company_name {
+      width: 40%;
       background-color: $primary;
-      padding: 1rem;
+      padding: 0.5rem;
       text-align: center;
       color: $tertiary;
       p {
@@ -30,10 +34,12 @@
         }
       }
       @media only screen and (max-width: 600px) {
-        padding: 0.6rem;
+        width: 100%;
+        padding: 0.5rem;
       }
     }
     .others {
+      width: 60%;
       background-color: $middle;
       padding-left: 1rem;
       padding-right: 1rem;
@@ -42,6 +48,9 @@
       text-align: center;
       color: $tertiary;
       letter-spacing: 0.5px;
+      @media only screen and (max-width: 600px) {
+      width: 100%;
+      }
       ul {
         list-style: none;
         height: 100%;
@@ -56,7 +65,7 @@
           align-items: center;
           gap: 0.5vw;
           cursor: pointer;
-          font-size: 1.5vw;
+          font-size: 1.2vw;
 
           @media only screen and (max-width: 600px) {
             font-size: 3vw;
