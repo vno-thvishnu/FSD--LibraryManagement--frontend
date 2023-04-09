@@ -193,6 +193,11 @@ function Login() {
           Create Account
         </Link>
       </div>
+      <div className={styles.displayid}>
+        <p><span>Email Id : </span>admin@gmail.com</p>
+        <p><span>Password : </span>12345678</p>
+
+      </div>
 
       <ToastContainer
         transition={Flip}
